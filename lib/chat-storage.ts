@@ -1162,6 +1162,10 @@ export function pushChatMessage(msg: Omit<ChatMessage, "id" | "createdAt" | "sta
             sessions[sessIdx].lastMessagePreview = preview;
         }
         sessions[sessIdx].updatedAt = newMsg.createdAt;
+        // 如果消息来自角色（assistant），增加未读计数
+        if (newMsg.role === "assistant") {
+            sessions[sessIdx].unreadCount = (sessions[sessIdx].unreadCount || 0) + 1;
+        }
         saveChatSessions(sessions);
     }
 

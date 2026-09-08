@@ -1128,6 +1128,13 @@ export function ChatRoom({ session, onBack, onDeleted }: ChatRoomProps) {
     // 聊天插件：进入聊天广播 session.opened
     useEffect(() => {
         emitChatPluginEvent("session.opened", { sessionId: session.id, isGroup: !!session.isGroup });
+        // 清除该会话的未读计数
+        const sessions = loadChatSessions();
+        const sessIdx = sessions.findIndex(s => s.id === session.id);
+        if (sessIdx !== -1 && sessions[sessIdx].unreadCount > 0) {
+            sessions[sessIdx].unreadCount = 0;
+            saveChatSessions(sessions);
+        }
     }, [session.id, session.isGroup]);
 
     // 聊天插件：监听插件 toast（支持常驻加载态 + 手动关闭）

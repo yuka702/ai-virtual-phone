@@ -772,9 +772,11 @@ function SessionItem({ session, onSelect, isPinned }: { session: ChatSession, on
         ].slice(0, 4)
         : [];
 
+    const unreadCount = session.unreadCount || 0;
+
     return (
         <div
-            className={`minimal-list-item${isPinned ? ' chat-pinned' : ''}`}
+            className={`minimal-list-item${isPinned ? ' chat-pinned' : ''}${unreadCount > 0 ? ' has-unread' : ''}`}
             onClick={onSelect}
         >
             {isGroup ? (
@@ -815,6 +817,9 @@ function SessionItem({ session, onSelect, isPinned }: { session: ChatSession, on
                     <span className="ts-13 text-[var(--c-text)] opacity-80 truncate font-normal">
                         {preview || getLastNonEmptyPreview(session.id)}
                     </span>
+                    {unreadCount > 0 && (
+                        <span className="unread-badge">{unreadCount > 99 ? '99+' : unreadCount}</span>
+                    )}
                 </div>
             </div>
         </div>

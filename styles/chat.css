@@ -252,6 +252,22 @@
   justify-content: center;
 }
 
+.unread-badge {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: #ff3b30;
+  color: #fff;
+  font-size: calc(11px*var(--app-text-scale,1));
+  font-weight: 600;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
 
 
 .chat-search-input {
